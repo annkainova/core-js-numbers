@@ -50,7 +50,7 @@ function getCircleCircumference(radius) {
  *  -3, 3  => 0
  */
 function getAverage(value1, value2) {
-  return (value1 + value2) / 2;
+  return value1 / 2 + value2 / 2;
 }
 
 /**
@@ -110,7 +110,7 @@ function getLinearEquationRoot(a, b) {
 function getAngleBetweenVectors(x1, y1, x2, y2) {
   const dotProduct = x1 * x2 + y1 * y2;
   const magnitude1 = Math.sqrt(x1 ** 2 + y1 ** 2);
-  const magnitude2 = Math.sqrt(x1 ** 2 + y1 ** 2);
+  const magnitude2 = Math.sqrt(x2 ** 2 + y2 ** 2);
   const getCosine = (dotProduct / Math.abs(magnitude1)) * Math.abs(magnitude2);
   return Math.acos(getCosine);
 }
@@ -183,8 +183,9 @@ function getParallelepipedDiagonal(a, b, c) {
  *   1678, 2  => 1700
  *   1678, 3  => 2000
  */
-function roundToPowerOfTen(/* num, pow */) {
-  throw new Error('Not implemented');
+function roundToPowerOfTen(num, pow) {
+  const factor = 10 ** pow;
+  return Math.round(num / factor) * factor;
 }
 
 /**
@@ -230,7 +231,7 @@ function isPrime(n) {
  */
 function toNumber(value, def) {
   const number = Number(value);
-  return typeof number === 'number' ? number : def;
+  return Number.isNaN(number) ? def : number;
 }
 
 /**
@@ -262,15 +263,15 @@ function getCube(num) {
  *   10 => 55
  */
 function getFibonacciNumber(index) {
-  let fibPrev = 1;
+  let fibPrev = 0;
   let fibNext = 1;
 
-  for (let i = 3; i <= index; i += 1) {
+  for (let i = 2; i <= index; i += 1) {
     const fib = fibPrev + fibNext;
     fibPrev = fibNext;
     fibNext = fib;
   }
-  return index > 1 ? fibNext : 1;
+  return index >= 0 ? fibNext : 0;
 }
 
 /**
@@ -326,7 +327,7 @@ function getSumOfDigits(num) {
  */
 function isPowerOfTwo(num) {
   let value = num;
-  while (num % 2 === 0) {
+  while (value > 1) {
     value /= 2;
   }
   return value === 1;
@@ -416,7 +417,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return parseInt(number, 10);
+  return Number(number);
 }
 
 /**
@@ -435,7 +436,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  return typeof number === 'number';
+  return Number.isFinite(number);
 }
 
 /**
@@ -540,7 +541,7 @@ function roundToLargestInteger(number) {
  * -5.5 => -5
  */
 function roundToNearestInteger(number) {
-  Math.round(number);
+  return Math.round(number);
 }
 
 /**
@@ -617,7 +618,11 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  return Math.sqrt(a ** 2 + b ** 2);
+  const result = Math.sqrt(a ** 2 + b ** 2);
+  if (result >= Number.MAX_VALUE) {
+    return Number.MAX_VALUE;
+  }
+  return result;
 }
 
 /**
@@ -635,7 +640,10 @@ function getHypotenuse(a, b) {
  */
 function getCountOfOddNumbers(number) {
   let count = 0;
-  for (let i = 0; i <= number; i += 1) {
+  if (number === 0) {
+    return 0;
+  }
+  for (let i = 1; i <= number; i += 1) {
     if (i % 2 !== 0) {
       count += 1;
     }
