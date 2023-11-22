@@ -273,7 +273,6 @@ function getFibonacciNumber(index) {
   return index > 1 ? fibNext : 1;
 }
 
-
 /**
  * Returns the sum of all numbers from 1 to n.
  *
@@ -326,10 +325,11 @@ function getSumOfDigits(num) {
  *   15  => false
  */
 function isPowerOfTwo(num) {
+  let value = num;
   while (num % 2 === 0) {
-    num /= 2;
+    value /= 2;
   }
-  return num === 1;
+  return value === 1;
 }
 
 /**
@@ -435,7 +435,7 @@ function getNumberValue(number) {
  * '5'      => false
  */
 function isNumber(number) {
-  return typeof number === 'number' ? true : false;
+  return typeof number === 'number';
 }
 
 /**
