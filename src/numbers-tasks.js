@@ -129,9 +129,7 @@ function getAngleBetweenVectors(x1, y1, x2, y2) {
  *     0     => 0
  */
 function getLastDigit(value) {
-  const valueString = value.toString();
-  const lastIndex = valueString.length - 1;
-  return valueString[lastIndex];
+  return value % 10;
 }
 
 /**
@@ -417,7 +415,7 @@ function toPrecision(number, precision) {
  * Number(-5)    => -5
  */
 function getNumberValue(number) {
-  return Number(number);
+  return number.valueOf();
 }
 
 /**
@@ -465,7 +463,7 @@ function isInteger(number) {
  * 'abcdefgh'      => NaN
  */
 function getFloatOnString(str) {
-  return parseFloat(str);
+  return Number.parseFloat(str);
 }
 
 /**
@@ -483,7 +481,7 @@ function getFloatOnString(str) {
  * '10', 8              => 8
  */
 function getIntegerOnString(str, base) {
-  return parseInt(str, base);
+  return Number.parseInt(str, base);
 }
 
 /**
@@ -556,7 +554,7 @@ function roundToNearestInteger(number) {
  * -5.5 => -5
  */
 function getIntegerPartNumber(number) {
-  return parseInt(number, 10);
+  return Math.trunc(number);
 }
 
 /**
@@ -618,11 +616,7 @@ function getRandomInteger(min, max) {
  * 3, 4 => 5
  */
 function getHypotenuse(a, b) {
-  const result = Math.sqrt(a ** 2 + b ** 2);
-  if (result >= Number.MAX_VALUE) {
-    return Number.MAX_VALUE;
-  }
-  return result;
+  return Math.hypot(a, b);
 }
 
 /**
@@ -639,16 +633,7 @@ function getHypotenuse(a, b) {
  * 15 => 8
  */
 function getCountOfOddNumbers(number) {
-  let count = 0;
-  if (number === 0) {
-    return 0;
-  }
-  for (let i = 1; i <= number; i += 1) {
-    if (i % 2 !== 0) {
-      count += 1;
-    }
-  }
-  return count;
+  return Math.ceil(Math.abs(number / 2));
 }
 
 module.exports = {
